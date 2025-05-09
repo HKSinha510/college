@@ -3,5 +3,5 @@
 with open("r.txt") as f:
     s = "a"
     while s:
-        s = f.read()
+        s = f.read(1)
         print(s)

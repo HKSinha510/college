@@ -4,7 +4,6 @@ num = int(input("Enter a num: "))
 n = num
 
 rev = 0
-c = 1
 while num:
     last = num % 10
     rev = (rev * 10) + last

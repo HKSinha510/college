@@ -1,7 +1,7 @@
 #write a funciton to swap the values of two variable through a function
 
-def swap(a, b):
-    return b, a
+def swap(x, y):
+    return y, x
 
 
 a = "ab1"
