@@ -1,13 +1,18 @@
 #include <stdio.h>
 
 int main() {
-    int arr[5] = {0,8,3,56,2};
+    int arr[] = {0, 3, 56, 56, 8, 41, 2, 2};
     int a = 0, b = 0;
+    int len_arr = sizeof(arr) / sizeof(arr[0]);
 
-    for (int i = 0; i < 5; i++){
-        if (a < arr[i]){
+    for (int i = 0; i < len_arr; i++){
+        int t = arr[i];
+
+        if (t > a){
             b = a;
-            a = arr[i];
+            a = t;
+        } else if (t > b && t != a){
+            b = t;
         }
     }
 
