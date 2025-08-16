@@ -11,7 +11,7 @@ class Area13 {
             case 1:
                 System.out.print("Enter radius: ");
                 double radius = sc.nextDouble();
-                System.out.println("Area of cicle = " + areaOfCircle(radius));
+                System.out.println("Area of cicle = " + (3.14 * radius * radius));
                 break;
                 
             case 2:
@@ -20,7 +20,7 @@ class Area13 {
                 System.out.print("Enter Breadth: ");
                 double b = sc.nextDouble();
 
-                System.out.println("Area of Rectangle = " + areaOfRectangle(l, b));
+                System.out.println("Area of Rectangle = " + (l * b));
                 break;
 
             case 3:
@@ -29,25 +29,12 @@ class Area13 {
                 System.out.print("Enter Heignt: ");
                 double h = sc.nextDouble();
 
-                System.out.println("Area of Triangle = " + areaOfTriangle(ba, h));
+                System.out.println("Area of Triangle = " + (0.5 * ba * h));
                 break;
                 
             default:
                 System.out.println("Invalid input");
                 break;
         }
-        
-    }
-
-    public static double areaOfCircle(double radius) {
-        return (3.14 * radius * radius);
-    }
-
-    public static double areaOfRectangle(double length, double breadth) {
-        return (length * breadth);
-    }
-
-    public static double areaOfTriangle(double base, double height) {
-        return (0.5 * base * height);
     }
 }
