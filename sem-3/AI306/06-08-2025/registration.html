@@ -8,11 +8,58 @@
 <body>
     <h1>Registration Form</h1>
     <form action="">
-        <label>
-            Full Name: <input type="text" placeholder="Enter your full name" id="name">
-        </label>
+        <label for="name">Full Name:</label>
+        <input type="text" name="name" placeholder="Enter your full name" id="name"><br><br>
 
+        <label for="email">Email:</label>
+        <input type="email" name="email" placeholder="Enter your email" id="email"><br><br>
 
+        <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="Enter password" id="password"><br><br>
+
+        <label for="gender">Gender:</label> <br>
+        <input type="radio" name="gender" value="male" id="male"> Male <br>
+        <input type="radio" name="gender" value="female" id="female"> Female <br>
+        <input type="radio" name="gender" value="other" id="other"> Other <br><br>
+        
+
+        <label for="hobbies">Hobbies: </label><br>
+        <input type="checkbox" name="hobbies" id="reading" value="reading"> Reading <br>
+        <input type="checkbox" name="hobbies" id="traveling" value="traveling"> Traveling <br>
+        <input type="checkbox" name="hobbies" id="music" value="music"> Music <br><br>
+
+        <label for="country">Country: </label>
+        <select name="country" id="country">
+            <option value="">--Select--</option>
+            <option value="bangladesh">Bangladesh</option>
+            <option value="bhutan">Bhutan</option>
+            <option value="india">India</option>
+            <option value="nepal">Nepal</option>
+            <option value="pakistan">Pakistan</option>
+            <option value="srilanka">Sri Lanka</option>
+            <option value="westindies">West Indies</option>
+        </select> <br><br>
+
+        <label for="age">Age (18-60):</label>
+        <input type="range" name="age" id="age" min="18" max="60"> <br><br>
+
+        <label for="about">About Yourself:</label><br>
+        <textarea id="about" name="about" placeholder="Write something about yourself..."></textarea> 
+        <br><br>
+
+        <input type="submit" value="Register">
+        <input type="reset" value="reset">
+
+        <!-- http://127.0.0.1:3000/06-08-2025/registration.html?name=asdfa
+         &email=fdsa%40fda.f
+         &password=fdsa
+         &gender=female
+         &hobbies=traveling
+         &country=nepal
+         &age=29
+         &about=fds 
+         -->
+        
     </form>
     
 </body>
