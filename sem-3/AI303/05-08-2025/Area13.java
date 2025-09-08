@@ -31,7 +31,7 @@ class Area13 {
 
                 System.out.println("Area of Triangle = " + (0.5 * ba * h));
                 break;
-                
+
             default:
                 System.out.println("Invalid input");
                 break;

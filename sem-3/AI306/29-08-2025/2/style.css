@@ -1,0 +1,27 @@
+/* * {
+    margin: 0px;
+    padding: 0px;
+} */
+
+.ai {
+    width: 100px;
+    
+    border: 15px double violet;
+
+    padding: 50px 70px 100px 20px;
+    /* padding: 70px; */
+
+    /* margin: 100px 30px; */
+    margin: 30px;
+    background-color: yellow;
+}
+
+h1 {
+    text-align: center;
+
+    /* border: 3px solid blue; */
+}
+/* 
+p {
+    border: 3px dotted green
+} */
