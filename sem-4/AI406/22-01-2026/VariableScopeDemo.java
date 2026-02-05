@@ -1,3 +1,5 @@
+// 2
+
 public class VariableScopeDemo {
 
     // Instance variable (object-level scope)
