@@ -1,0 +1,729 @@
+// ============================================================
+// AI-401 Computer Network Lab - Java Programs
+// ============================================================
+
+
+// ============================================================
+// EXPERIMENT-3: Single Parity Bit for Error Detection
+// ============================================================
+// File: ParityCheck.java
+
+import java.util.Scanner;
+
+public class ParityCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the data bits (e.g. 1010110): ");
+        String data = sc.next();
+
+        int countOnes = 0;
+        for (char c : data.toCharArray()) {
+            if (c == '1') countOnes++;
+        }
+
+        // Even parity: parity bit makes total 1s even
+        int parityBit = (countOnes % 2 == 0) ? 0 : 1;
+        String transmitted = data + parityBit;
+
+        System.out.println("\n--- Sender Side ---");
+        System.out.println("Original Data     : " + data);
+        System.out.println("Number of 1s      : " + countOnes);
+        System.out.println("Parity Bit (Even) : " + parityBit);
+        System.out.println("Transmitted Data  : " + transmitted);
+
+        // --- Receiver Side ---
+        System.out.println("\n--- Receiver Side ---");
+        System.out.print("Enter received data (with parity bit): ");
+        String received = sc.next();
+
+        int receivedOnes = 0;
+        for (char c : received.toCharArray()) {
+            if (c == '1') receivedOnes++;
+        }
+
+        System.out.println("Number of 1s in received data: " + receivedOnes);
+        if (receivedOnes % 2 == 0) {
+            System.out.println("Result: No error detected.");
+        } else {
+            System.out.println("Result: Error detected!");
+        }
+
+        sc.close();
+    }
+}
+
+/*
+SAMPLE OUTPUT:
+Enter the data bits (e.g. 1010110): 1010110
+
+--- Sender Side ---
+Original Data     : 1010110
+Number of 1s      : 4
+Parity Bit (Even) : 0
+Transmitted Data  : 10101100
+
+--- Receiver Side ---
+Enter received data (with parity bit): 10101100
+Number of 1s in received data: 4
+Result: No error detected.
+*/
+
+
+// ============================================================
+// EXPERIMENT-4: Hamming Code for Error Detection & Correction
+// ============================================================
+// File: HammingCode.java
+
+import java.util.Scanner;
+
+public class HammingCode {
+
+    static int[] frame;
+    static int totalLength;
+
+    // Calculate and insert parity bits into the frame
+    static void calculateParityBits() {
+        for (int i = 1; i <= totalLength; i++) {
+            if (isPowerOfTwo(i)) {
+                frame[i] = 0; // placeholder
+                int parity = 0;
+                for (int j = 1; j <= totalLength; j++) {
+                    if (j != i && (j & i) != 0) {
+                        parity ^= frame[j];
+                    }
+                }
+                frame[i] = parity;
+            }
+        }
+    }
+
+    // Check and find error position
+    static int findErrorPosition() {
+        int errorPos = 0;
+        for (int i = 1; i <= totalLength; i++) {
+            if (isPowerOfTwo(i)) {
+                int parity = 0;
+                for (int j = 1; j <= totalLength; j++) {
+                    if ((j & i) != 0) {
+                        parity ^= frame[j];
+                    }
+                }
+                if (parity != 0) errorPos += i;
+            }
+        }
+        return errorPos;
+    }
+
+    static boolean isPowerOfTwo(int n) {
+        return n > 0 && (n & (n - 1)) == 0;
+    }
+
+    static void printFrame() {
+        System.out.print("[ ");
+        for (int i = 1; i <= totalLength; i++) {
+            System.out.print(frame[i] + " ");
+        }
+        System.out.println("]");
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of data bits: ");
+        int m = sc.nextInt();
+
+        int[] data = new int[m];
+        System.out.println("Enter " + m + " data bits (one by one):");
+        for (int i = 0; i < m; i++) data[i] = sc.nextInt();
+
+        // Calculate number of parity bits needed: 2^r >= m + r + 1
+        int r = 0;
+        while (Math.pow(2, r) < (m + r + 1)) r++;
+
+        totalLength = m + r;
+        frame = new int[totalLength + 1]; // 1-indexed
+
+        // Place data bits in non-power-of-2 positions
+        int dataIdx = 0;
+        for (int i = 1; i <= totalLength; i++) {
+            if (!isPowerOfTwo(i)) {
+                frame[i] = data[dataIdx++];
+            }
+        }
+
+        System.out.println("\nNumber of parity bits required: " + r);
+        System.out.print("Frame before parity (0 = parity placeholder): ");
+        printFrame();
+
+        calculateParityBits();
+
+        System.out.print("Hamming Code (transmitted frame)           : ");
+        printFrame();
+
+        // Introduce error
+        System.out.print("\nEnter bit position where error occurred (1 to " + totalLength + "): ");
+        int errPos = sc.nextInt();
+
+        frame[errPos] ^= 1; // flip the bit
+        System.out.print("Frame after error at position " + errPos + "               : ");
+        printFrame();
+
+        // Detect and correct error
+        int detectedPos = findErrorPosition();
+        if (detectedPos == 0) {
+            System.out.println("No error detected.");
+        } else {
+            System.out.println("Error detected at bit position: " + detectedPos);
+            frame[detectedPos] ^= 1; // correct the bit
+            System.out.print("Corrected frame                                : ");
+            printFrame();
+        }
+
+        sc.close();
+    }
+}
+
+/*
+SAMPLE OUTPUT:
+Enter number of data bits: 4
+Enter 4 data bits (one by one):
+1 0 1 1
+
+Number of parity bits required: 3
+Frame before parity (0 = parity placeholder): [ 0 0 1 0 0 1 1 ]
+Hamming Code (transmitted frame)           : [ 0 1 1 0 1 1 1 ]
+
+Enter bit position where error occurred (1 to 7): 5
+Frame after error at position 5               : [ 0 1 1 0 0 1 1 ]
+Error detected at bit position: 5
+Corrected frame                                : [ 0 1 1 0 1 1 1 ]
+*/
+
+
+// ============================================================
+// EXPERIMENT-5: CRC (Cyclic Redundancy Check)
+// ============================================================
+// File: CRC.java
+
+import java.util.Scanner;
+
+public class CRC {
+
+    // XOR two binary strings of equal length
+    static String xor(String a, String b) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < b.length(); i++) {
+            result.append(a.charAt(i) == b.charAt(i) ? '0' : '1');
+        }
+        return result.toString();
+    }
+
+    // Perform modulo-2 binary division, return remainder
+    static String mod2Divide(String dividend, String divisor) {
+        int divisorLen = divisor.length();
+        String remainder = dividend.substring(0, divisorLen);
+
+        while (divisorLen < dividend.length()) {
+            if (remainder.charAt(0) == '1') {
+                remainder = xor(divisor, remainder).substring(1) + dividend.charAt(divisorLen);
+            } else {
+                remainder = xor(new String(new char[divisorLen]).replace('\0', '0'), remainder)
+                                .substring(1) + dividend.charAt(divisorLen);
+            }
+            divisorLen++;
+        }
+
+        // Last step
+        if (remainder.charAt(0) == '1') {
+            remainder = xor(divisor, remainder);
+        } else {
+            remainder = xor(new String(new char[divisorLen]).replace('\0', '0'), remainder);
+        }
+
+        return remainder;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the data bits: ");
+        String data = sc.next();
+        System.out.print("Enter generator polynomial (divisor): ");
+        String generator = sc.next();
+
+        int appendZeros = generator.length() - 1;
+
+        // Append zeros to data
+        String augmented = data + "0".repeat(appendZeros);
+        System.out.println("\nAugmented data (data + " + appendZeros + " zeros): " + augmented);
+
+        // Calculate CRC (remainder)
+        String crc = mod2Divide(augmented, generator);
+        System.out.println("CRC / Checksum                            : " + crc);
+
+        // Form transmitted codeword
+        String codeword = data + crc;
+        System.out.println("Transmitted Codeword (data + CRC)         : " + codeword);
+
+        // Error detection
+        System.out.print("\nTest error detection? 0 = Yes, 1 = No : ");
+        int choice = sc.nextInt();
+
+        String receivedData = codeword;
+        if (choice == 0) {
+            System.out.print("Enter bit position to introduce error (0-indexed): ");
+            int pos = sc.nextInt();
+            char[] arr = receivedData.toCharArray();
+            arr[pos] = (arr[pos] == '0') ? '1' : '0';
+            receivedData = new String(arr);
+            System.out.println("Erroneous received data: " + receivedData);
+        }
+
+        // Verify at receiver
+        String checkRemainder = mod2Divide(receivedData, generator);
+        System.out.println("Remainder at receiver  : " + checkRemainder);
+
+        boolean hasError = false;
+        for (char c : checkRemainder.toCharArray()) {
+            if (c == '1') { hasError = true; break; }
+        }
+
+        if (hasError) {
+            System.out.println("Result: Error detected!");
+        } else {
+            System.out.println("Result: No error detected.");
+        }
+
+        sc.close();
+    }
+}
+
+/*
+SAMPLE OUTPUT:
+Enter the data bits: 1011101
+Enter generator polynomial (divisor): 10011
+
+Augmented data (data + 4 zeros): 10111010000
+CRC / Checksum                            : 1110
+Transmitted Codeword (data + CRC)         : 10111011110
+
+Test error detection? 0 = Yes, 1 = No : 0
+Enter bit position to introduce error (0-indexed): 3
+Erroneous received data: 10101011110
+Remainder at receiver  : 0100
+Result: Error detected!
+*/
+
+
+// ============================================================
+// EXPERIMENT-6: Bit Stuffing
+// ============================================================
+// File: BitStuffing.java
+
+import java.util.Scanner;
+
+public class BitStuffing {
+
+    // Sender: stuff a 0 after five consecutive 1s
+    static String stuffBits(String data) {
+        StringBuilder stuffed = new StringBuilder();
+        int consecutiveOnes = 0;
+
+        for (char bit : data.toCharArray()) {
+            stuffed.append(bit);
+            if (bit == '1') {
+                consecutiveOnes++;
+                if (consecutiveOnes == 5) {
+                    stuffed.append('0'); // stuff a 0
+                    consecutiveOnes = 0;
+                }
+            } else {
+                consecutiveOnes = 0;
+            }
+        }
+        return stuffed.toString();
+    }
+
+    // Receiver: remove stuffed 0s after five consecutive 1s
+    static String destuffBits(String data) {
+        StringBuilder destuffed = new StringBuilder();
+        int consecutiveOnes = 0;
+        int i = 0;
+
+        while (i < data.length()) {
+            char bit = data.charAt(i);
+            destuffed.append(bit);
+            if (bit == '1') {
+                consecutiveOnes++;
+                if (consecutiveOnes == 5) {
+                    i++; // skip the stuffed 0
+                    consecutiveOnes = 0;
+                }
+            } else {
+                consecutiveOnes = 0;
+            }
+            i++;
+        }
+        return destuffed.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String FLAG = "01111110"; // Standard HDLC flag
+
+        System.out.print("Enter binary data: ");
+        String data = sc.next();
+
+        // Sender side
+        String stuffed = stuffBits(data);
+        String transmitted = FLAG + stuffed + FLAG;
+
+        System.out.println("\n--- Sender Side ---");
+        System.out.println("Original Data    : " + data);
+        System.out.println("After Bit Stuffing: " + stuffed);
+        System.out.println("Transmitted Frame: " + transmitted);
+
+        // Receiver side
+        System.out.println("\n--- Receiver Side ---");
+        // Strip flags
+        String stripped = transmitted.substring(FLAG.length(), transmitted.length() - FLAG.length());
+        System.out.println("After Removing Flags : " + stripped);
+        String destuffed = destuffBits(stripped);
+        System.out.println("After Bit Destuffing : " + destuffed);
+
+        if (destuffed.equals(data)) {
+            System.out.println("Data received correctly!");
+        } else {
+            System.out.println("Data mismatch - error!");
+        }
+
+        sc.close();
+    }
+}
+
+/*
+SAMPLE OUTPUT:
+Enter binary data: 0111110111110
+
+--- Sender Side ---
+Original Data    : 0111110111110
+After Bit Stuffing: 011111001111100
+Transmitted Frame: 0111111001111100 01111110
+
+--- Receiver Side ---
+After Removing Flags : 011111001111100
+After Bit Destuffing : 0111110111110
+Data received correctly!
+*/
+
+
+// ============================================================
+// EXPERIMENT-7: Character Count Framing
+// ============================================================
+// File: CharCountFraming.java
+
+import java.util.Scanner;
+
+public class CharCountFraming {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter the string: ");
+        String s = sc.nextLine();
+
+        System.out.print("Enter the frame size: ");
+        int frameSize = sc.nextInt();
+
+        int len = s.length();
+        System.out.println("\nTotal characters: " + len);
+        System.out.println("\n--- Frames ---");
+
+        int frameNum = 1;
+        for (int i = 0; i < len; i += frameSize) {
+            int end = Math.min(i + frameSize, len);
+            String frameData = s.substring(i, end);
+            int count = frameData.length();
+
+            // Format: [count | data] — the count field acts as the header
+            System.out.println("Frame " + frameNum + ": | " + count + " | " + frameData + " |");
+            frameNum++;
+        }
+
+        System.out.println("\nTotal frames: " + (frameNum - 1));
+        sc.close();
+    }
+}
+
+/*
+SAMPLE OUTPUT:
+Enter the string: HelloWorld
+Enter the frame size: 3
+
+Total characters: 10
+
+--- Frames ---
+Frame 1: | 3 | Hel |
+Frame 2: | 3 | loW |
+Frame 3: | 3 | orl |
+Frame 4: | 1 | d |
+
+Total frames: 4
+*/
+
+
+// ============================================================
+// EXPERIMENT-12: Peer-to-Peer Communication Using UDP
+// ============================================================
+
+// --- File: UDPServer.java ---
+import java.io.*;
+import java.net.*;
+
+public class UDPServer {
+    public static void main(String[] args) throws IOException {
+        DatagramSocket serverSocket = new DatagramSocket(9876);
+        byte[] receiveData = new byte[1024];
+        byte[] sendData;
+
+        System.out.println("UDP Server started. Waiting for messages...");
+
+        while (true) {
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            serverSocket.receive(receivePacket);
+
+            String sentence = new String(receivePacket.getData(), 0, receivePacket.getLength());
+            System.out.println("Received from client: " + sentence);
+
+            InetAddress clientAddress = receivePacket.getAddress();
+            int clientPort = receivePacket.getPort();
+
+            // Echo back in uppercase
+            String response = sentence.toUpperCase();
+            sendData = response.getBytes();
+
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, clientAddress, clientPort);
+            serverSocket.send(sendPacket);
+            System.out.println("Sent to client: " + response);
+        }
+    }
+}
+
+// --- File: UDPClient.java ---
+import java.io.*;
+import java.net.*;
+
+public class UDPClient {
+    public static void main(String[] args) throws IOException {
+        BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+        DatagramSocket clientSocket = new DatagramSocket();
+
+        // Change "localhost" to server IP if running on different machines
+        InetAddress serverAddress = InetAddress.getByName("localhost");
+        byte[] sendData;
+        byte[] receiveData = new byte[1024];
+
+        System.out.print("Enter message to send: ");
+        String message = inFromUser.readLine();
+        sendData = message.getBytes();
+
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, serverAddress, 9876);
+        clientSocket.send(sendPacket);
+
+        DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+        clientSocket.receive(receivePacket);
+
+        String response = new String(receivePacket.getData(), 0, receivePacket.getLength());
+        System.out.println("From Server: " + response);
+
+        clientSocket.close();
+    }
+}
+
+/*
+SAMPLE OUTPUT:
+[Server Terminal]
+UDP Server started. Waiting for messages...
+Received from client: Hi Server
+Sent to client: HI SERVER
+
+[Client Terminal]
+Enter message to send: Hi Server
+From Server: HI SERVER
+*/
+
+
+// ============================================================
+// EXPERIMENT-13: UDP Echo Client and Echo Server
+// ============================================================
+
+// --- File: EchoServer.java ---
+import java.net.*;
+import java.io.*;
+
+public class EchoServer {
+    public static void main(String[] args) throws IOException {
+        DatagramSocket socket = new DatagramSocket(8888);
+        byte[] buffer = new byte[512];
+
+        System.out.println("Echo Server started on port 8888...");
+
+        DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
+        socket.receive(receivePacket);
+
+        String received = new String(receivePacket.getData(), 0, receivePacket.getLength());
+        System.out.println("Received: " + received);
+        System.out.println("End of reception");
+
+        // Echo back the same message
+        InetAddress clientAddress = receivePacket.getAddress();
+        int clientPort = receivePacket.getPort();
+
+        String response = "From Server - Hello Client";
+        byte[] responseData = response.getBytes();
+
+        DatagramPacket sendPacket = new DatagramPacket(responseData, responseData.length, clientAddress, clientPort);
+        socket.send(sendPacket);
+        System.out.println("Sent: " + response);
+        System.out.println("End of sending");
+
+        socket.close();
+    }
+}
+
+// --- File: EchoClient.java ---
+import java.net.*;
+import java.io.*;
+
+public class EchoClient {
+    public static void main(String[] args) throws IOException {
+        DatagramSocket socket = new DatagramSocket(9999);
+        byte[] buffer = new byte[1024];
+
+        // Change "localhost" to server IP if on different machine
+        InetAddress serverAddress = InetAddress.getByName("localhost");
+
+        String message = "From Client - Hello Server";
+        byte[] sendData = message.getBytes();
+
+        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, serverAddress, 8888);
+        socket.send(sendPacket);
+        System.out.println("Sent: " + message);
+        System.out.println("End of sending");
+
+        DatagramPacket receivePacket = new DatagramPacket(buffer, buffer.length);
+        socket.receive(receivePacket);
+
+        String response = new String(receivePacket.getData(), 0, receivePacket.getLength());
+        System.out.println("Received: " + response);
+        System.out.println("End of programming");
+
+        socket.close();
+    }
+}
+
+/*
+SAMPLE OUTPUT:
+[Server Terminal]
+Echo Server started on port 8888...
+Received: From Client - Hello Server
+End of reception
+Sent: From Server - Hello Client
+End of sending
+
+[Client Terminal]
+Sent: From Client - Hello Server
+End of sending
+Received: From Server - Hello Client
+End of programming
+*/
+
+
+// ============================================================
+// EXPERIMENT-14: Client-Server Communication Using TCP
+// ============================================================
+
+// --- File: TCPServer.java ---
+import java.net.*;
+import java.io.*;
+
+public class TCPServer {
+    public static void main(String[] args) {
+        try {
+            ServerSocket serverSocket = new ServerSocket(1234);
+            System.out.println("TCP Server started. Waiting for client...");
+
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("Client connected from: " + clientSocket.getInetAddress());
+
+            // Read message from client
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+
+            String clientMessage = in.readLine();
+            System.out.println("Received from client: " + clientMessage);
+
+            // Send response
+            String response = "Welcome from Server!";
+            out.println(response);
+            System.out.println("Sent to client: " + response);
+
+            in.close();
+            out.close();
+            clientSocket.close();
+            serverSocket.close();
+
+        } catch (Exception e) {
+            System.out.println("Server error: " + e.getMessage());
+        }
+    }
+}
+
+// --- File: TCPClient.java ---
+import java.net.*;
+import java.io.*;
+
+public class TCPClient {
+    public static void main(String[] args) {
+        try {
+            // Change "localhost" to server IP if on different machine
+            Socket socket = new Socket("localhost", 1234);
+            System.out.println("Connected to server.");
+
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+
+            System.out.print("Enter message to send: ");
+            String message = userInput.readLine();
+            out.println(message);
+            System.out.println("Sent: " + message);
+
+            String response = in.readLine();
+            System.out.println("Received from server: " + response);
+
+            in.close();
+            out.close();
+            socket.close();
+
+        } catch (Exception e) {
+            System.out.println("Client error: " + e.getMessage());
+        }
+    }
+}
+
+/*
+SAMPLE OUTPUT:
+[Server Terminal]
+TCP Server started. Waiting for client...
+Client connected from: /127.0.0.1
+Received from client: Hello Server!
+Sent to client: Welcome from Server!
+
+[Client Terminal]
+Connected to server.
+Enter message to send: Hello Server!
+Sent: Hello Server!
+Received from server: Welcome from Server!
+*/
