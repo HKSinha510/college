@@ -1,0 +1,28 @@
+%=============================================================
+%  DATA SCIENCE ASSIGNMENT — MAIN FILE
+%  Compile with: pdflatex main.tex  (no shell-escape needed)
+%
+%  Folder structure:
+%    main.tex            ← you are here
+%    preamble.tex        ← all packages & custom commands
+%    pages/
+%      cover.tex         ← title page
+%      exp1.tex          ← Experiment 1
+%      exp2.tex          ← Experiment 2
+%      ...
+%    images/             ← put your chart PNGs here
+%=============================================================
+
+\documentclass[12pt, a4paper]{article}
+
+\input{preamble}   % load all packages, colours, commands
+
+\begin{document}
+\tableofcontents
+\newpage
+
+\input{experi/exp1}        % Experiment 1
+\input{experi/exp2}        % Experiment 2
+% \input{pages/exp3}      % add more as needed
+
+\end{document}

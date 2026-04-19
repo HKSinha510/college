@@ -1,0 +1,205 @@
+%=============================================================
+%  pages/exp1.tex — Experiment 1
+%  Remove listing caption
+%  make it like, code, then output
+%  
+%=============================================================
+
+\experiment{1}{%
+    Collect a real-life dataset and identify different types of data(numerical and categorical). Analyse the dataset and present it using suitable tables or charts.
+}
+
+% ── 1. Dataset Info ───────────────────────────────────────────
+\subsection{Dataset Info}
+
+% We use a student performance dataset (\texttt{dataset.csv}).
+
+
+\begin{lstlisting}[style=python]
+import pandas as pd
+import matplotlib.pyplot as plt
+import random
+
+df_student = pd.read_csv("dataset.csv", delimiter=',', header='infer')
+
+df_student.head()
+\end{lstlisting}
+
+\textbf{Output:}
+
+% \begin{centre}
+% \end{centre}
+\begin{tabular}{cccccc}
+    \toprule
+    & \textbf{Name} & \textbf{Gender} & \textbf{Grade} & \textbf{StudyHours} & \textbf{Marks} \\
+    \midrule
+    0 & Aarav  & M & A & 6 & 91 \\
+    1 & Ishita & F & A & 7 & 95 \\
+    2 & Rohan  & M & B & 4 & 75 \\
+    3 & Meera  & F & B & 5 & 78 \\
+    4 & Kabir  & M & C & 2 & 55 \\
+    \bottomrule
+\end{tabular}
+\newline
+\gap
+
+\texttt{head()} function is used to print the first 5 records of the dataframe.
+We can use \texttt{dtypes} attribute to give out datatype of each column.
+
+\begin{lstlisting}[style=python]
+df_student.dtypes
+\end{lstlisting}
+
+\textbf{Output:}
+\gap
+\begin{lstlisting}[style=output]
+Name          object
+Gender        object
+Grade         object
+StudyHours     int64
+Marks          int64
+Attendance     int64
+dtype: object
+\end{lstlisting}
+
+The dataset we chose contains 50 records. These records were Name, Gender, Grade, StudyHours, Marks \& Attendance. 
+\begin{itemize}[noitemsep]
+    \item \textbf{Numerical:} StudyHours, Marks, Attendance
+    \item \textbf{Categorical:} Gender (M/F), Grade (A/B/C/D)
+\end{itemize}
+
+% ── 2. Analysis ───────────────────────────────────────────────
+\subsection{Analysis of Dataset}
+
+Let's do some basic analysic of the dataset using charts and graphs.
+
+% ── i) Gender Distribution ───────────────────────────────────
+\subsubsection*{i) Gender Distribution}
+
+\begin{lstlisting}[style=python]
+counts = df_student.Gender.value_counts()
+plt.pie(counts, labels=counts.index, autopct='%1.1f%%')
+plt.legend()
+plt.title("Gender Ratio")
+plt.show()
+\end{lstlisting}
+
+\textbf{Output:}
+
+% Replace gender_pie.png with your actual image file in images/
+\begin{figure}[H]
+    % \centering
+    \includegraphics[width=0.55\textwidth]{img/exp1gender.png}
+    % \caption{Gender Ratio — Pie Chart}
+    \label{fig:gender_pie}
+\end{figure}
+
+
+\subsubsection*{ii) Grade Distribution}
+\begin{lstlisting}[style=python]
+counts = df_student.Grade.value_counts()
+plt.pie(counts, labels=counts.index, autopct='%1.1f%%', explode=[random.uniform(0, 0.1) for _ in range(4)]) 
+plt.legend()
+
+plt.title("Grade")
+plt.show()
+\end{lstlisting}
+
+\textbf{Output: }
+
+\begin{figure}[H]
+    \includegraphics[width=0.55\textwidth]{img/exp1_grade.png}
+    \label{fig:grade_pie}
+\end{figure}
+
+% ── iii) Marks per student ─────────────────────────────────────
+\subsubsection*{iii) Marks of Each Student}
+
+\begin{lstlisting}[style=python]
+plt.figure(figsize=(12,4.8))   
+plt.bar(df_student.Name, df_student.Marks, label="marks", zorder=2)
+
+plt.title("Marks of each student")
+plt.ylabel("Marks")
+plt.xlabel("Name")
+plt.ylim(top=101)
+plt.xticks(rotation=90)
+plt.grid(zorder=0)
+plt.legend()
+
+plt.show()
+\end{lstlisting}
+
+\begin{figure}[H]
+    % \centering
+    \includegraphics[width=\textwidth]{img/exp1_marks.png}
+    % \caption{Marks of Each Student — Bar Chart}
+    % \label{fig:marks_bar}
+\end{figure}
+
+% iv
+\subsubsection*{iv) Gender-wise average distribution}
+
+\begin{lstlisting}[style=python]
+marks = df_student.groupby("Gender")["Marks"].mean()
+studyhour = df_student.groupby("Gender")["StudyHours"].mean()
+hardiksassignment = df_student.groupby("Gender")['Attendance'].mean()
+
+x = np.arange(marks.count())
+width = 0.25
+
+plt.bar(x-width, marks.values, width, label="Marks")
+plt.bar(x, studyhour.values, width, label="Study Hours")
+plt.bar(x + width, hardiksassignment.values, width, label="Attendance")
+
+plt.xticks(x, marks.index)
+plt.grid(axis='y', zorder=0)
+plt.legend()
+plt.title("gender-wise average distribution")
+
+plt.show()
+\end{lstlisting}
+
+\begin{figure}[H]
+    % \centering
+    \includegraphics[width=0.75\textwidth]{img/exp1_genDist.png}
+    % \caption{Marks of Each Student — Bar Chart}
+    % \label{fig:marks_bar}
+\end{figure}
+
+% v
+\subsubsection*{v) Grade-wise average distribution}
+
+\begin{lstlisting}[style=python]
+studyhour = df_student.groupby("Grade")["StudyHours"].mean()
+hardiksassignment = df_student.groupby("Grade")['Attendance'].mean()
+
+x = np.arange(marks.count())
+width = 0.25
+
+plt.bar(x - width/2, studyhour.values, width, label="Study Hours")
+plt.bar(x + width/2, hardiksassignment.values, width, label="Attendance")
+
+plt.xticks(x, marks.index)
+plt.grid(axis='y', zorder=0)
+plt.legend()
+plt.title("grade-wise average distribution")
+
+plt.show()
+\end{lstlisting}
+
+\begin{figure}[H]
+    % \centering
+    \includegraphics[width=0.75\textwidth]{img/exp1_graDist.png}
+    % \caption{Marks of Each Student — Bar Chart}
+    % \label{fig:marks_bar}
+\end{figure}
+
+% % ── Result ───────────────────────────────────────────────────
+\subsection{Observation}
+From these graphs and charts, we can deduce that this batch has an approximately equal ratio of males and females. Both groups have fairly similar average marks, study hour and attedance. Looking at the grade-wise distribution, we can see that as the grade descreases the study hours and attendance have also reduced.
+
+% The dataset contains both numerical (marks, attendance, study hours)
+% and categorical (gender, grade) columns. From the pie chart, male
+% students make up 53.3\% and female 46.7\%. The bar chart shows
+% Ishita scored the highest marks (95).

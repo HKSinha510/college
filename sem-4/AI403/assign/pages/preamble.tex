@@ -1,0 +1,135 @@
+%=============================================================
+%  preamble.tex — packages, colours, custom commands
+%  Included by main.tex via \input{preamble}
+%=============================================================
+
+% ─── Core Packages ──────────────────────────────────────────
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[expansion=false]{microtype}
+
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{ragged2e}
+
+% ─── listings (syntax highlighting, no shell-escape needed) ─
+\usepackage{listings}
+
+% ─── Colour Palette ─────────────────────────────────────────
+\definecolor{primary}{RGB}{31, 73, 125}       % Dark blue  — headings
+\definecolor{accent}{RGB}{0, 112, 192}        % Mid blue   — labels
+\definecolor{codebg}{RGB}{245, 245, 250}      % Code background
+\definecolor{coderule}{RGB}{180, 180, 180}    % Code border
+
+% Python syntax colours
+\definecolor{kw}{RGB}{0,   0,   180}   % keywords      (blue)
+\definecolor{str}{RGB}{163, 21,  21}   % strings       (red)
+\definecolor{cmt}{RGB}{80,  160, 80}   % comments      (green)
+\definecolor{num}{RGB}{9,   134, 88}   % numbers       (teal)
+\definecolor{blt}{RGB}{148, 0,   211}  % builtins      (purple)
+
+% ─── listings Python Style ───────────────────────────────────
+\lstdefinestyle{python}{
+    language         = Python,
+    backgroundcolor  = \color{codebg},
+    basicstyle       = \ttfamily\small,
+    keywordstyle     = \color{kw}\bfseries,
+    stringstyle      = \color{str},
+    commentstyle     = \color{cmt}\itshape,
+    numberstyle      = \tiny\color{gray},
+    numbers          = left,
+    numbersep        = 8pt,
+    stepnumber       = 1,
+    frame            = single,
+    framesep         = 4pt,
+    rulecolor        = \color{coderule},
+    breaklines       = true,
+    breakatwhitespace= true,
+    showstringspaces = false,
+    tabsize          = 4,
+    captionpos       = b,
+    % Extra keywords (common builtins / libraries)
+    morekeywords     = {import, as, from, True, False, None,
+                        print, len, range, type, int, str, float,
+                        list, dict, tuple, set},
+    % emph = highlight pandas/plt methods differently
+    emph             = {pd, plt, df_student, np},
+    emphstyle        = \color{blt},
+    xleftmargin      = 14pt,
+    xrightmargin     = 4pt,
+    aboveskip        = 8pt,
+    belowskip        = 4pt,
+}
+
+% Plain text output style (no colours, monospace box)
+\lstdefinestyle{output}{
+    backgroundcolor  = \color{white},
+    basicstyle       = \ttfamily\small,
+    frame            = single,
+    rulecolor        = \color{coderule},
+    numbers          = none,
+    breaklines       = true,
+    xleftmargin      = 14pt,
+    xrightmargin     = 4pt,
+    aboveskip        = 4pt,
+    belowskip        = 4pt,
+}
+
+% Default style
+\lstset{style=python}
+
+% ─── Hyperlink Style ────────────────────────────────────────
+\hypersetup{hidelinks}   % no colours, no boxes, nothing
+
+% ─── Header / Footer ────────────────────────────────────────
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% ─── Section counter for correct subsection numbering ────────
+\newcounter{expnum}
+\setcounter{expnum}{0}
+
+% ─── Section Styles ─────────────────────────────────────────
+\titleformat{\section}
+  {\large\bfseries\color{primary}}{}{0em}{}
+
+% Subsections show as  1.1  1.2  2.1  2.2  etc.
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{accent}}{\theexpnum.\arabic{subsection}.}{0.5em}{}
+
+% ─── Spacing helper ─────────────────────────────────────────
+\newcommand{\gap}{\vspace{8pt}}
+
+% ─── Helper: Experiment header ───────────────────────────────
+% Usage: \experiment{1}{Full title of experiment}
+\newcommand{\experiment}[2]{%
+    \newpage
+    \stepcounter{expnum}%
+    \setcounter{subsection}{0}%
+    {\LARGE\bfseries Experiment #1}\\[4pt]%
+    {\large\bfseries\color{primary}\parbox{\linewidth}{#2}}%
+    \vspace{10pt}%
+}
+
+% ─── Question block (justified, no box) ─────────────────────
+% Usage: \question{Write the question text here}
+\newcommand{\question}[1]{%
+    \vspace{4pt}%
+    \begin{flushleft}%
+        \parbox{\linewidth}{\justifying #1}%
+    \end{flushleft}%
+    \vspace{6pt}%
+}
