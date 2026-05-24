@@ -1,0 +1,113 @@
+\experiment{9}{%
+    Develop a simple linear regression model for a dataset to establish the relationship between two variables. Use the model to make predictions and interpret the results.
+}
+
+\subsection{Building Linear regression model}
+
+We'll training 2 linear regression model on our dataset:
+
+1. x = Marks, y = StudyHours
+
+2. x = Marks, y = Attendance
+
+\subsubsection*{i) Model 1}
+
+\begin{lstlisting}[style=python]
+import pandas as pd 
+from scipy import stats
+
+m, b, r, p, se = stats.linregress(df_student['Marks'], df_student['StudyHours'])
+print(f"Slope (m): {m:.4f}")
+print(f"Intercept (b): {b:.4f}")
+print(f"R^2 : {r**2:.4f}")
+print(f"Equation: StudyHours = {m:.4f} * Marks + ({b:.4f})")
+print(f"Standard Error: {se}")
+\end{lstlisting}
+
+\textbf{Output:}
+
+Slope (m): 0.1059
+Intercept (b): -3.3658
+R² : 0.9701
+Equation: StudyHours = 0.1059 * Marks + (-3.3658)
+Standard Error: 0.003514849799273692
+
+\gap
+
+\begin{lstlisting}[style=python]
+# Making Predictions
+test_marks = [24, 28, 50, 60, 80, 90]
+for mark in test_marks:
+    predicted = m * mark + b
+    print(f"Marks = {mark} -> Predicted StudyHours = {round(predicted, 2)}")
+\end{lstlisting}
+
+\textbf{Output:}
+
+Marks = 24 → Predicted StudyHours = -0.82
+Marks = 28 → Predicted StudyHours = -0.4
+Marks = 50 → Predicted StudyHours = 1.93
+Marks = 60 → Predicted StudyHours = 2.99
+Marks = 80 → Predicted StudyHours = 5.1
+Marks = 90 → Predicted StudyHours = 6.16
+
+
+\subsubsection*{ii) Model 2}
+
+\begin{lstlisting}[style=python]
+m, b, r, p, se = stats.linregress(df_student['Marks'], df_student['Attendance'])
+
+print(f"Slope (m): {m:.4f}")
+print(f"Intercept (b): {b:.4f}")
+print(f"R^2 : {r**2:.4f}")
+print(f"Equation: Attendance = {m:.4f} * Marks + ({b:.4f})")
+print(f"Standard Error: {se}")
+\end{lstlisting}
+
+\textbf{Output:}
+
+Slope (m): 0.9319
+Intercept (b): 10.1499
+R² : 0.9963
+Equation: Attendance = 0.9319 * Marks + (10.1499)
+Standard Error: 0.010745191624759547
+
+\gap
+
+\begin{lstlisting}[style=python]
+# Making Predictions
+test_marks = [24, 28, 50, 60, 80, 90]
+for mark in test_marks:
+    predicted = m * mark + b
+    print(f"Marks = {mark} -> Predicted Attendance = {round(predicted, 2)}\%")
+\end{lstlisting}
+
+\textbf{Output:}
+
+Marks = 24 → Predicted Attendance = 32.51\%
+Marks = 28 → Predicted Attendance = 36.24\%
+Marks = 50 → Predicted Attendance = 56.74\%
+Marks = 60 → Predicted Attendance = 66.06\%
+Marks = 80 → Predicted Attendance = 84.7\%
+Marks = 90 → Predicted Attendance = 94.02\%
+
+\subsection{Observation}
+
+\subsubsection*{Model 1: Marks vs StudyHours}
+
+i. The regression equation is StudyHours = 0.1059 * Marks - 3.3658, it roughly indicate that for every 1 mark increase a student studying approximately 0.11 hours more.
+
+ii. The R² value of 0.9701 indicates a very strong and reliable model, which is also confirmed by very low Standard Error.
+
+iii. The model predicts negative study hour for marks below 32 due to lack of records in dataset.
+
+iv. For marks within the dataset range (35--95), predictions are pretty reasonable.
+
+\subsubsection*{Model 2: Marks vs Attendance}
+
+i. The regression equation is Attendance = 0.9319 * Marks + 10.1499, meaning for every 1 mark increase corresponds to approximately 0.93\% increase in attendance.
+
+ii. The R² value of 0.9963 is exceptionlly high, indicates this is the stronger of the two models, which is also confirmed by very low Standard Error.
+
+iii. redictions within the data range are highly accurate
+

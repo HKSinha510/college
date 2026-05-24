@@ -177,37 +177,15 @@ INPUT .\main.out
 INPUT .\main.out
 INPUT main.out
 INPUT main.out
-OUTPUT main.pdf
 INPUT .\main.out
 INPUT .\main.out
 OUTPUT main.out
+OUTPUT main.pdf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx12.tfm
 INPUT .\main.toc
 INPUT .\main.toc
 INPUT main.toc
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\ot1lmr.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\ot1lmr.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\ot1lmr.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr12.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr6.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omllmm.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omllmm.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omllmm.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi12.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi6.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omslmsy.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omslmsy.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omslmsy.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy10.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy8.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy6.tfm
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omxlmex.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omxlmex.fd
-INPUT C:\Program Files\MiKTeX\tex\latex\lm\omxlmex.fd
-INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmex10.tfm
 OUTPUT main.toc
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr10.tfm
 INPUT C:\Users\hardi\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
@@ -219,15 +197,28 @@ INPUT .\experi\exp1.tex
 INPUT experi\exp1.tex
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr17.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx12.tfm
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\ot1lmr.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\ot1lmr.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\ot1lmr.fd
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr7.tfm
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\omllmm.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\omllmm.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\omllmm.fd
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi7.tfm
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\omslmsy.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\omslmsy.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\omslmsy.fd
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy7.tfm
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\omxlmex.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\omxlmex.fd
+INPUT C:\Program Files\MiKTeX\tex\latex\lm\omxlmex.fd
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmex10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmbx12.tfm
 INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmtt.fd
 INPUT C:\Program Files\MiKTeX\tex\latex\lm\t1lmtt.fd
@@ -236,6 +227,15 @@ INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmtt12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmtt10.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmr6.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmtk10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr12.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr8.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\rm-lmr6.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi12.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi8.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmmi6.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy10.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy8.tfm
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\lmsy6.tfm
 INPUT C:\Program Files\MiKTeX\tex\latex\lm\ts1lmr.fd
 INPUT C:\Program Files\MiKTeX\tex\latex\lm\ts1lmr.fd
 INPUT C:\Program Files\MiKTeX\tex\latex\lm\ts1lmr.fd
@@ -332,14 +332,97 @@ INPUT .\experi\exp5.tex
 INPUT .\experi\exp5.tex
 INPUT experi\exp5.tex
 INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-mathsy.enc
-INPUT .\img\exp4_markHist.png
-INPUT .\img\exp4_markHist.png
-INPUT .\img\exp4_markHist.png
-INPUT .\img\exp4_markHist.png
-INPUT .\img\exp4_errorplt.png
-INPUT .\img\exp4_errorplt.png
-INPUT .\img\exp4_errorplt.png
-INPUT .\img\exp4_errorplt.png
+INPUT .\img\exp5_markHist.png
+INPUT .\img\exp5_markHist.png
+INPUT .\img\exp5_markHist.png
+INPUT .\img\exp5_markHist.png
+INPUT .\img\exp5_markHist.png
+INPUT .\img\exp5_markHist.png
+INPUT .\img\exp5_markHist.png
+INPUT .\img\exp5_studyhHist.png
+INPUT .\img\exp5_studyhHist.png
+INPUT .\img\exp5_studyhHist.png
+INPUT .\img\exp5_studyhHist.png
+INPUT .\img\exp5_studyhHist.png
+INPUT .\img\exp5_studyhHist.png
+INPUT .\img\exp5_studyhHist.png
+INPUT .\img\exp5_attendanceHist.png
+INPUT .\img\exp5_attendanceHist.png
+INPUT .\img\exp5_attendanceHist.png
+INPUT .\img\exp5_attendanceHist.png
+INPUT .\img\exp5_attendanceHist.png
+INPUT .\img\exp5_attendanceHist.png
+INPUT .\img\exp5_attendanceHist.png
+INPUT .\experi\exp6.tex
+INPUT .\experi\exp6.tex
+INPUT .\experi\exp6.tex
+INPUT .\experi\exp6.tex
+INPUT experi\exp6.tex
+INPUT .\img\exp6_markHist.png
+INPUT .\img\exp6_markHist.png
+INPUT .\img\exp6_markHist.png
+INPUT .\img\exp6_markHist.png
+INPUT .\img\exp6_markHist.png
+INPUT .\img\exp6_markHist.png
+INPUT .\img\exp6_markHist.png
+INPUT .\img\exp6_studyhHist.png
+INPUT .\img\exp6_studyhHist.png
+INPUT .\img\exp6_studyhHist.png
+INPUT .\img\exp6_studyhHist.png
+INPUT .\img\exp6_studyhHist.png
+INPUT .\img\exp6_studyhHist.png
+INPUT .\img\exp6_studyhHist.png
+INPUT .\img\exp6_attendanceHist.png
+INPUT .\img\exp6_attendanceHist.png
+INPUT .\img\exp6_attendanceHist.png
+INPUT .\img\exp6_attendanceHist.png
+INPUT .\img\exp6_attendanceHist.png
+INPUT .\img\exp6_attendanceHist.png
+INPUT .\img\exp6_attendanceHist.png
+INPUT .\experi\exp7.tex
+INPUT .\experi\exp7.tex
+INPUT .\experi\exp7.tex
+INPUT .\experi\exp7.tex
+INPUT experi\exp7.tex
+INPUT C:\Program Files\MiKTeX\fonts\tfm\public\lm\ec-lmtti10.tfm
+INPUT .\img\exp7_markvsstudy.png
+INPUT .\img\exp7_markvsstudy.png
+INPUT .\img\exp7_markvsstudy.png
+INPUT .\img\exp7_markvsstudy.png
+INPUT .\img\exp7_markvsstudy.png
+INPUT .\img\exp7_markvsstudy.png
+INPUT .\img\exp7_markvsstudy.png
+INPUT .\img\exp7_markvsattend.png
+INPUT .\img\exp7_markvsattend.png
+INPUT .\img\exp7_markvsattend.png
+INPUT .\img\exp7_markvsattend.png
+INPUT .\img\exp7_markvsattend.png
+INPUT .\img\exp7_markvsattend.png
+INPUT .\img\exp7_markvsattend.png
+INPUT .\img\exp7_attendvsstudy.png
+INPUT .\img\exp7_attendvsstudy.png
+INPUT .\img\exp7_attendvsstudy.png
+INPUT .\img\exp7_attendvsstudy.png
+INPUT .\img\exp7_attendvsstudy.png
+INPUT .\img\exp7_attendvsstudy.png
+INPUT .\img\exp7_attendvsstudy.png
+INPUT .\experi\exp8.tex
+INPUT .\experi\exp8.tex
+INPUT .\experi\exp8.tex
+INPUT .\experi\exp8.tex
+INPUT experi\exp8.tex
+INPUT .\img\exp8_corrHeat.png
+INPUT .\img\exp8_corrHeat.png
+INPUT .\img\exp8_corrHeat.png
+INPUT .\img\exp8_corrHeat.png
+INPUT .\img\exp8_corrHeat.png
+INPUT .\img\exp8_corrHeat.png
+INPUT .\img\exp8_corrHeat.png
+INPUT .\experi\exp9.tex
+INPUT .\experi\exp9.tex
+INPUT .\experi\exp9.tex
+INPUT .\experi\exp9.tex
+INPUT experi\exp9.tex
 INPUT main.aux
 INPUT .\main.out
 INPUT .\main.out
@@ -359,3 +442,5 @@ INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtt10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtt10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtt12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtt12.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtti10.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtti10.pfb

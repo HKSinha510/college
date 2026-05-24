@@ -1,12 +1,8 @@
 \experiment{5}{%
-    Calculate measure of variablity such as range, variance and standard deviation for a dataset. Interpret what these measure indicate about the spread of the data.
+    Compute the mean, median, and mode for a given dataset. Compare these measures and analyze which one best represents the data.
 }
 
-\subsection{Calculating measure of variablity}
-
-\subsubsection*{i) Range}
-
-range = max - min
+\subsection{Computing mean, median and mode}
 
 \begin{lstlisting}[style=python]
 import pandas as pd 
@@ -15,90 +11,49 @@ import numpy as np
 
 df_student = pd.read_csv("dataset.csv", delimiter=',', header='infer')
 
-minval = df_student[['Marks', 'StudyHours', 'Attendance']].min()
-maxval = df_student[['Marks', 'StudyHours', 'Attendance']].max()
+sel = df_student[['Marks', 'StudyHours', 'Attendance']]
 
-rng = pd.DataFrame({
-    'Attribute': minval.index,
-    'Minimum': minval.values,
-    'Maximum': maxval.values,
-    'Range': (maxval - minval).values
+cal = pd.DataFrame({
+    'Attribute': sel.mean().index,
+    'Mean': sel.mean().values.round(2),
+    'Median': sel.median().values.round(2),
+    'Mode': sel.mode().iloc[0].values.round(2)
 })
 
-print(rng)
+print(cal)
 \end{lstlisting}
 
 \textbf{Output:}
 
 \begin{tabular}{ccccc}
     \toprule
-    & \textbf{Attribute} & \textbf{Minimum} & \textbf{Maximum} & \textbf{Range} \\
+    & \textbf{Attribute} & \textbf{Mean} & \textbf{Median} & \textbf{Mode} \\
     \midrule
-    0 & Marks  & 35 & 95 & 60 \\
-    1 & StudyHours  & 1 & 7 & 6 \\
-    2 & Attendance  & 42 & 99 & 57 \\
+    0 & Marks  & 70.20 & 74.5 & 35.0 \\
+    1 & StudyHours  & 4.07 & 4.0 & 4.0 \\
+    2 & Attendance  & 75.57 & 80.0 & 80.0 \\
     \bottomrule
 \end{tabular}
 
-
-\subsubsection*{ii) Variance}
-
-\begin{lstlisting}[style=python]
-print(df_student[['Marks', 'StudyHours', 'Attendance']].var().round(3))
-\end{lstlisting}
-
-\textbf{Output:}
-
-\begin{tabular}{cc}
-    \toprule
-    Marks  & 345.752 \\
-    StudyHours  & 3.995 \\
-    Attendance  & 301.357 \\
-    \bottomrule
-\end{tabular}
-
-\subsubsection*{iii) Standard Deviation}
-
-\begin{lstlisting}[style=python]
-df_student[['Marks', 'StudyHours', 'Attendance']].agg(['std', 'mean']).T.round(3)
-\end{lstlisting}
-
-\textbf{Output:}
-
-\begin{tabular}{ccc}
-    \toprule
-    & \textbf{std} & \textbf{mean} \\
-    \midrule
-    Marks  & 18.594 & 70.200 \\
-    StudyHours  & 1.999 & 4.067 \\
-    Attendance  & 17.360 & 75.567 \\
-    \bottomrule
-\end{tabular}
 
 \subsection{Representation}
-% histogram with marksing
-% box plot  for range
-% bar chart of mean with sd on top
-\subsubsection*{i) Spread of Marks}
+
+\subsubsection*{i) Marks}
 
 \begin{lstlisting}[style=python]
 sturges = round(1+np.log2(df_student.Marks.count()))
 
-mean = df_student.Marks.mean()
-std = df_student.Marks.std()
+plt.hist(df_student.Marks, bins=sturges, ec="white", zorder = 2)
 
-plt.hist(df_student.Marks, ec='white', bins=sturges, zorder=2, label="students")
+plt.xlabel("marks")
+plt.ylabel("no. of students")
+plt.grid(zorder=0, linestyle=":", alpha=0.6)
 
-plt.xlabel('Marks')
-plt.ylabel('Frequency')
-
-plt.axvline(mean-std, linestyle='--', color='#F9AA33', label = "mean - std")
-plt.axvline(mean, linestyle=':', label = "mean")
-plt.axvline(mean+std, linestyle='--', color='#8EBA42', label = "mean + std")
+plt.axvline(cal.Mean.iloc[0], color='#8EBA42', linestyle='--', label="mean")
+plt.axvline(cal.Median.iloc[0], color='#D9534F', linestyle='-.', label="median")
+plt.axvline(cal.Mode.iloc[0], color='#F59E0B', linestyle='-', label="mode")
 
 plt.legend()
-plt.grid(zorder=0, linestyle=':', alpha=0.6)
-
 plt.show()
 
 \end{lstlisting}
@@ -107,21 +62,25 @@ plt.show()
 
 \begin{figure}[H]
     % \centering
-    \includegraphics[width=0.75\textwidth]{img/exp4_markHist.png}
+    \includegraphics[width=0.75\textwidth]{img/exp5_markHist.png}
     % \caption{Marks of Each Student — Bar Chart}
     % \label{fig:marks_bar}
 \end{figure}
 
-
-\subsubsection*{ii) Majority distribution in each attribute}
+\subsubsection*{ii) Study Hours}
 
 \begin{lstlisting}[style=python]
-mean = df_student[['Marks', 'StudyHours', 'Attendance']].mean()
-std = df_student[['Marks', 'StudyHours', 'Attendance']].std()
+plt.hist(df_student.StudyHours, bins=sturges, ec="white", zorder = 2)
 
-plt.errorbar(mean.index, mean.values, std.values, fmt='o', capsize=6, zorder = 2)
+plt.xlabel("study hours")
+plt.ylabel("no. of students")
+plt.grid(zorder=0, linestyle=":", alpha=0.6)
 
-plt.grid(zorder=0, linestyle=':', alpha=0.6)
+plt.axvline(cal.Mean.iloc[1], color='#8EBA42', linestyle='--', label="mean")
+plt.axvline(cal.Median.iloc[1], color='#D9534F', linestyle='-.', label="median")
+plt.axvline(cal.Mode.iloc[1], color='#F59E0B', linestyle='-', label="mode")
+
+plt.legend()
 plt.show()
 
 \end{lstlisting}
@@ -130,21 +89,52 @@ plt.show()
 
 \begin{figure}[H]
     % \centering
-    \includegraphics[width=0.75\textwidth]{img/exp4_errorplt.png}
+    \includegraphics[width=0.75\textwidth]{img/exp5_studyhHist.png}
     % \caption{Marks of Each Student — Bar Chart}
     % \label{fig:marks_bar}
 \end{figure}
 
+\subsubsection*{iii) Attendance}
 
+\begin{lstlisting}[style=python]
+plt.hist(df_student.Attendance, bins=sturges, ec="white", zorder = 2)
+
+plt.xlabel("attendance")
+plt.ylabel("no. of students")
+plt.grid(zorder=0, linestyle=":", alpha=0.6)
+
+plt.axvline(cal.Mean.iloc[2], color='#8EBA42', linestyle='--', label="mean")
+plt.axvline(cal.Median.iloc[2], color='#D9534F', linestyle='-.', label="median")
+plt.axvline(cal.Mode.iloc[2], color='#F59E0B', linestyle='-', label="mode")
+
+plt.legend()
+plt.show()
+
+\end{lstlisting}
+
+\textbf{Output:}
+
+\begin{figure}[H]
+    % \centering
+    \includegraphics[width=0.75\textwidth]{img/exp5_attendanceHist.png}
+    % \caption{Marks of Each Student — Bar Chart}
+    % \label{fig:marks_bar}
+\end{figure}
+
+% 
+
+% add one more graph of 3 bars beside one another for comapring mean median and mode at same time.
+
+% 
 
 \subsection{Observation}
 
-i. The range of Marks is 60, StudyHours is 6 and Attendance is 57. Marks and Attendance have a wider spread compared to StudyHours.
+i. For marks, the mean is lower than median, which confirms the left skewned distribution seen in above histogram. A few students with low marks are pulling the mean down.
 
-ii. The standard deviation of Marks is 18.59, meaning most students scored within $\pm$18.59 of the mean, i.e. between 51.6 \& 88.8. This can be seen in graphs above
+ii. The mode of Marks is 35.0, which is nowhere close to mean or median of Marks, indicating it is not a true measure of central tendency for this column.
 
-iii. StudyHours has lowest variance and standard deviation, indicating that study hours is relatively consistent across students compared to thier marks or attendnace.
+iii. For StudyHours, the mean, median and mode are nearly identical, suggesting a symmetrical distribution, which can be seen in the graphs above. Mean is a good representation here.
 
-iv. Attendance has a varaince of 301.36 and standard deviation of 17.36, suggesting some inconsistency in how regular students atteneded class.
+iv. For Attendance, mean is slighly lower than median and mode, indicating a very slight left skewness. 
 
-v. High standard deviation of marks suggest that class is heterogeneous, i.e. performance varies from student to student.
+v. Across all thress attributes, median the most reliable measure of central tendency.
