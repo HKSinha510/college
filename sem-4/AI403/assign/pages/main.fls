@@ -286,6 +286,60 @@ INPUT .\experi\exp3.tex
 INPUT .\experi\exp3.tex
 INPUT .\experi\exp3.tex
 INPUT experi\exp3.tex
+INPUT .\img\exp3_markHist.png
+INPUT .\img\exp3_markHist.png
+INPUT .\img\exp3_markHist.png
+INPUT .\img\exp3_markHist.png
+INPUT .\img\exp3_markHist.png
+INPUT .\img\exp3_markHist.png
+INPUT .\img\exp3_markHist.png
+INPUT .\img\exp3_gradeDist.png
+INPUT .\img\exp3_gradeDist.png
+INPUT .\img\exp3_gradeDist.png
+INPUT .\img\exp3_gradeDist.png
+INPUT .\img\exp3_gradeDist.png
+INPUT .\img\exp3_gradeDist.png
+INPUT .\img\exp3_gradeDist.png
+INPUT .\img\exp3_marksOgive.png
+INPUT .\img\exp3_marksOgive.png
+INPUT .\img\exp3_marksOgive.png
+INPUT .\img\exp3_marksOgive.png
+INPUT .\img\exp3_marksOgive.png
+INPUT .\img\exp3_marksOgive.png
+INPUT .\img\exp3_marksOgive.png
+INPUT .\experi\exp4.tex
+INPUT .\experi\exp4.tex
+INPUT .\experi\exp4.tex
+INPUT .\experi\exp4.tex
+INPUT experi\exp4.tex
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_errorplt.png
+INPUT .\img\exp4_errorplt.png
+INPUT .\img\exp4_errorplt.png
+INPUT .\img\exp4_errorplt.png
+INPUT .\img\exp4_errorplt.png
+INPUT .\img\exp4_errorplt.png
+INPUT .\img\exp4_errorplt.png
+INPUT .\experi\exp5.tex
+INPUT .\experi\exp5.tex
+INPUT .\experi\exp5.tex
+INPUT .\experi\exp5.tex
+INPUT experi\exp5.tex
+INPUT C:\Program Files\MiKTeX\fonts\enc\dvips\lm\lm-mathsy.enc
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_markHist.png
+INPUT .\img\exp4_errorplt.png
+INPUT .\img\exp4_errorplt.png
+INPUT .\img\exp4_errorplt.png
+INPUT .\img\exp4_errorplt.png
 INPUT main.aux
 INPUT .\main.out
 INPUT .\main.out
@@ -297,6 +351,8 @@ INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmr12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmr12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmr6.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmr6.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmsy10.pfb
+INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmsy10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtk10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtk10.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\lm\lmtt10.pfb

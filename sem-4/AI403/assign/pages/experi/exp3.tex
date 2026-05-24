@@ -32,46 +32,120 @@ df_student = pd.read_csv("dataset.csv", delimiter=',', header='infer')
 
 sturges = round(1+np.log2(df_student.Marks.count()))
 
-freq = pd.cut(df_student["Marks"], bins=sturges, include_lowest=True).value_counts().sort_index()
+counts, bins = np.histogram(df_student.Marks, bins=sturges)
 
 freq_dis = pd.DataFrame({
-    'Class Interval': freq.index,
-    'Frequency': freq.values,
-    'Relative frequency': (freq.values / len(df_student)).round(2),
-    'Cumulative Frequency': freq.values.cumsum()
+    'Class Interval': [f'{bins[i-1]} - {bins[i]}' for i in range(1, len(bins))],
+    'Frequency': counts,
+    'Relative frequency': (counts / len(df_student)).round(2),
+    'Cumulative Frequency': counts.cumsum()
 })
 
-print(freq_table)
+print(freq_dis)
 \end{lstlisting}
 
 
-\textbf{Output:}\\
+\textbf{Output:}
+
 \begin{tabular}{ccccc}
     \toprule
     & \textbf{Class Interval} & \textbf{Frequency} & \textbf{Relative Frequency} & \textbf{Cumulative Frequency} \\
     \midrule
-    0 & 35-50  & 5 & 0.17 & 5 \\
-    1 & 51-60  & 6 & 0.2 & 11 \\
-    2 & 61-70 & 1 & 0.03 & 12 \\
-    3 & 71-80  & 9 & 0.3 & 21 \\
-    4 & 81-90  & 4 & 0.13 & 25 \\
-    5 & 91-100  & 5 & 0.17 & 30 \\
+    0 & 35.0 - 45.0  & 4 & 0.13 & 4 \\
+    1 & 45.0 - 55.0  & 3 & 0.10 & 7 \\
+    2 & 55.0 - 65.0  & 5 & 0.17 & 12 \\
+    3 & 65.0 - 75.0  & 3 & 0.10 & 15 \\
+    4 & 75.0 - 85.0  & 6 & 0.20 & 21 \\
+    5 & 85.0 - 95.0  & 9 & 0.30 & 30 \\
 
     \bottomrule
 \end{tabular}
 
 
-% \subsection{Classification of Dataset}
-% \begin{tabularx}{\linewidth}{ccccX}
-%     \toprule
-%     & \textbf{Variable} & \textbf{Data Type} & \textbf{Measurement Scale} & \textbf{Justification} \\
-%     \midrule
-%     1 & Name  & Categorial & Nominal & no mathematical relation or order \\
-%     2 & Gender & Categorial & Nominal & Two categories, no relation \\
-%     3 & Grade  & Categorial & Ordinal & A > B > C > D > E, intervals are unequal \\
-%     4 & Marks  & Numerical & Ratio & 0 is nil, 90 marks is twice 45 marks \\
-%     5 & StudyHours  & Numerical & Ratio & 0 means nil \\
-%     6 & Attendance  & Numerical & Ratio & 0\% means nil \\
 
-%     \bottomrule
-% \end{tabularx}
+\subsection{Representation}
+
+\subsubsection*{i) Histogram of marks records: }
+
+\begin{lstlisting}[style=python]
+plt.hist(df_student.Marks, ec='white', bins=sturges, zorder=2)
+
+plt.xlabel('Marks')
+plt.ylabel('Frequency')
+plt.grid(zorder=0)
+
+plt.show()
+\end{lstlisting}
+
+\begin{figure}[H]
+    % \centering
+    \includegraphics[width=0.75\textwidth]{img/exp3_markHist.png}
+    % \caption{Marks of Each Student — Bar Chart}
+    % \label{fig:marks_bar}
+\end{figure}
+
+\subsubsection*{ii) Grade distribution: }
+
+\begin{lstlisting}[style=python]
+graded = df_student.groupby("Grade").Marks
+
+plt.bar(graded.count().index, graded.count().values, label = "students", zorder=2)
+
+plt.title("Student distribution by grades")
+plt.xlabel("Grades")
+plt.ylabel("No. of students")
+plt.ylim((0 ,10))
+plt.legend()
+plt.grid(zorder=0)
+
+plt.show()
+
+\end{lstlisting}
+
+
+\begin{figure}[H]
+    % \centering
+    \includegraphics[width=0.75\textwidth]{img/exp3_gradeDist.png}
+    % \caption{Marks of Each Student — Bar Chart}
+    % \label{fig:marks_bar}
+\end{figure}
+
+\subsubsection*{iii) Ogive graph}
+
+\begin{lstlisting}[style=python]
+counts, bins = np.histogram(df_student.Marks, bins=sturges)
+
+bin_centre = []
+for i in range(1, len(bins)):
+    bin_centre.append((bins[i-1] + bins[i])/2)
+
+plt.plot(bin_centre, counts.cumsum(), "o-", label="less than ogive", zorder=2)
+plt.plot(bin_centre, counts.cumsum()[::-1], "o-", label="more than ogive", zorder=3)
+
+plt.xlabel('Marks')
+plt.ylabel('Frequency')
+plt.legend()
+plt.grid(zorder=0)
+
+plt.show()
+\end{lstlisting}
+
+\begin{figure}[H]
+    % \centering
+    \includegraphics[width=0.75\textwidth]{img/exp3_marksOgive.png}
+    % \caption{Marks of Each Student — Bar Chart}
+    % \label{fig:marks_bar}
+\end{figure}
+
+
+\subsection{Observation}
+
+i) From the frequency distribution table, the majority of students lies between 85 \& 95 marks range, with the highest frequency of 9.
+
+ii) The histogram is slightly left skewed, indicating most students scored good marks except a few.
+
+iii) From the grade-wise distribution, grades A and B both have 9 students each, accounting for 60\% of the class.
+
+iv) The ogive graph shows that 21/30 students scored below 85 marks.
+
+v) The combined relative frequency of 75.0 to 95.0 interval is 50\%, meaning half of the class scored high marks. This indicates a strong overall performance.

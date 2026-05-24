@@ -4,3 +4,11 @@
 \contentsline {subsection}{\numberline {0.1}Objective}{8}{subsection.0.1}%
 \contentsline {subsection}{\numberline {0.2}Classification of Dataset}{8}{subsection.0.2}%
 \contentsline {subsection}{\numberline {0.1}Frequency Distribution Table}{9}{subsection.0.1}%
+\contentsline {subsection}{\numberline {0.2}Representation}{9}{subsection.0.2}%
+\contentsline {subsection}{\numberline {0.3}Observation}{12}{subsection.0.3}%
+\contentsline {subsection}{\numberline {0.1}Calculating measure of variablity}{13}{subsection.0.1}%
+\contentsline {subsection}{\numberline {0.2}Representation}{14}{subsection.0.2}%
+\contentsline {subsection}{\numberline {0.3}Observation}{16}{subsection.0.3}%
+\contentsline {subsection}{\numberline {0.1}Calculating measure of variablity}{17}{subsection.0.1}%
+\contentsline {subsection}{\numberline {0.2}Representation}{18}{subsection.0.2}%
+\contentsline {subsection}{\numberline {0.3}Observation}{20}{subsection.0.3}%
