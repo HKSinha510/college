@@ -4,7 +4,7 @@
 %=============================================================
 
 % ─── Core Packages ──────────────────────────────────────────
-\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[a4paper, margin=0.75in]{geometry}
 \usepackage{parskip}
 \usepackage{titlesec}
 \usepackage{graphicx}
@@ -21,6 +21,8 @@
 \usepackage{booktabs}
 \usepackage{amsmath}
 \usepackage{ragged2e}
+
+\usepackage{tabularx}
 
 % ─── listings (syntax highlighting, no shell-escape needed) ─
 \usepackage{listings}
@@ -133,3 +135,6 @@
     \end{flushleft}%
     \vspace{6pt}%
 }
+
+%  for text wraping in table
+% \newcolumntype{A}{>{\centering\arraybackslash}p{2.5cm}}

@@ -1,0 +1,77 @@
+%=============================================================
+%  pages/exp1.tex — Experiment 2
+%  
+%=============================================================
+
+\experiment{3}{%
+    Construct a frequency distribution table from a given dataset by grouping the data into class internvals. Represent the data using graphs such as histograms or bar charts.
+}
+
+
+
+% frequency distribution table
+% histogram idk of whose
+% bar chart grade distribution
+% ogive chart, idk of whose
+
+% obsertions to make
+% which class internval has the highest frequnecy
+% type of skewness
+% 
+
+% ── 1. Dataset Info ───────────────────────────────────────────
+\subsection{Frequency Distribution Table}
+We can group the dataset into class intervals by using `cut()` function of pandas.
+
+\begin{lstlisting}[style=python]
+import pandas as pd 
+import matplotlib.pyplot as plt 
+import numpy as np
+
+df_student = pd.read_csv("dataset.csv", delimiter=',', header='infer')
+
+sturges = round(1+np.log2(df_student.Marks.count()))
+
+freq = pd.cut(df_student["Marks"], bins=sturges, include_lowest=True).value_counts().sort_index()
+
+freq_dis = pd.DataFrame({
+    'Class Interval': freq.index,
+    'Frequency': freq.values,
+    'Relative frequency': (freq.values / len(df_student)).round(2),
+    'Cumulative Frequency': freq.values.cumsum()
+})
+
+print(freq_table)
+\end{lstlisting}
+
+
+\textbf{Output:}\\
+\begin{tabular}{ccccc}
+    \toprule
+    & \textbf{Class Interval} & \textbf{Frequency} & \textbf{Relative Frequency} & \textbf{Cumulative Frequency} \\
+    \midrule
+    0 & 35-50  & 5 & 0.17 & 5 \\
+    1 & 51-60  & 6 & 0.2 & 11 \\
+    2 & 61-70 & 1 & 0.03 & 12 \\
+    3 & 71-80  & 9 & 0.3 & 21 \\
+    4 & 81-90  & 4 & 0.13 & 25 \\
+    5 & 91-100  & 5 & 0.17 & 30 \\
+
+    \bottomrule
+\end{tabular}
+
+
+% \subsection{Classification of Dataset}
+% \begin{tabularx}{\linewidth}{ccccX}
+%     \toprule
+%     & \textbf{Variable} & \textbf{Data Type} & \textbf{Measurement Scale} & \textbf{Justification} \\
+%     \midrule
+%     1 & Name  & Categorial & Nominal & no mathematical relation or order \\
+%     2 & Gender & Categorial & Nominal & Two categories, no relation \\
+%     3 & Grade  & Categorial & Ordinal & A > B > C > D > E, intervals are unequal \\
+%     4 & Marks  & Numerical & Ratio & 0 is nil, 90 marks is twice 45 marks \\
+%     5 & StudyHours  & Numerical & Ratio & 0 means nil \\
+%     6 & Attendance  & Numerical & Ratio & 0\% means nil \\
+
+%     \bottomrule
+% \end{tabularx}
